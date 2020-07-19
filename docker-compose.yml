@@ -1,0 +1,24 @@
+version: '3.2'
+services:
+
+  # Hint: docker-compose up -d public
+  web:
+    image: nginx:latest
+    ports:
+      - 8080:80
+    volumes:
+      - ./:/app
+      - ./dist:/app/public/dist
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+
+  node:
+    image: "node:14"
+    user: "node"
+    tty: true
+    working_dir: /app
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/app
+
+
